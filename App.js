@@ -35,7 +35,7 @@ export default function App() {
           component={SearchScreen}
         />
         <Tab.Screen
-          name="Favorite"
+          name="StackFavorite"
           options={{
             title: "Favoritos",
             tabBarIcon: ({ color, size }) => (
