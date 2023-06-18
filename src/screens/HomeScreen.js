@@ -4,7 +4,10 @@ import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import HorizontalList from "../components/HorizontalList";
 import { bookList } from "../../dummy";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
 
 const Stack = createStackNavigator();
@@ -25,7 +28,14 @@ const HomeScreen = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Detail" component={DetailScreen} />
+      <Stack.Screen
+        name="Detail"
+        component={DetailScreen}
+        options={{
+          presentation: "modal",
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
     </Stack.Navigator>
   );
 };

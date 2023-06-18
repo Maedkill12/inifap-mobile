@@ -7,7 +7,7 @@ const BookCard = ({ book }) => {
   return (
     <TouchableOpacity
       className="h-[170px] w-[116px] mr-2"
-      onPress={() => navigation.navigate("Detail")}
+      onPress={() => navigation.navigate("Detail", { book })}
     >
       <Image
         source={{ uri: book.portada }}
