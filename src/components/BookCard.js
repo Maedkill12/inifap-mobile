@@ -10,7 +10,9 @@ const BookCard = ({ book }) => {
       onPress={() => navigation.navigate("Detail", { book })}
     >
       <Image
-        source={{ uri: book.portada }}
+        source={{
+          uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
+        }}
         className="w-full h-full overflow-hidden rounded-xl"
       />
     </TouchableOpacity>

@@ -29,7 +29,7 @@ const HorizontalList = ({ name, list, styles = "", nameStyles = "" }) => {
           data={list}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.canonical_isbn}
           renderItem={({ item }) => <BookCard book={item} />}
         />
       </View>

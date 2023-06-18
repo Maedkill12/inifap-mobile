@@ -6,8 +6,11 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import HorizontalList from "../components/HorizontalList";
 import { bookList } from "../../dummy";
+import { useSnapshot } from "valtio";
+import state from "../state";
 
 const DetailScreen = () => {
+  const snap = useSnapshot(state);
   const navigation = useNavigation();
   const {
     params: { book },
@@ -24,14 +27,16 @@ const DetailScreen = () => {
         <View className="mt-2 flex-row top-5" style={{ gap: 20 }}>
           <View className="h-[170px] w-[116px]">
             <Image
-              source={{ uri: book.portada }}
+              source={{
+                uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
+              }}
               className="w-full h-full overflow-hidden rounded-xl"
             />
           </View>
           <View className="justify-between flex-1">
-            <Text className="font-bold text-white text-sm">{book.titulo}</Text>
+            <Text className="font-bold text-white text-sm">{book.title}</Text>
             <Text className="font-medium text-[#D7D7D7] text-sm">
-              Autor: {book.autor}
+              Autor: {book.authors[0]}
             </Text>
             <View className="flex-row items-center" style={{ gap: 20 }}>
               <TouchableOpacity className="bg-red-500 w-[98px] h-[34px] items-center justify-center rounded-lg">
@@ -66,11 +71,11 @@ const DetailScreen = () => {
       >
         <Text className="font-semibold text-base">Descripción</Text>
         <Text className="italic font-light text-xs min-h-[130px] max-h-[150px] mb-2 overflow-hidden">
-          {book.descripcion}
+          {book.summary}
         </Text>
         <HorizontalList
           name="Recomendados"
-          list={bookList}
+          list={snap.books}
           styles="px-0"
           nameStyles="text-black"
         />

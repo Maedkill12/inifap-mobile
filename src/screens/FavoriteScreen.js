@@ -7,19 +7,21 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
-import { bookList } from "../../dummy";
 import FavoriteCard from "../components/FavoriteCard";
+import { useSnapshot } from "valtio";
+import state from "../state";
 
 const Stack = createStackNavigator();
 
 const Favorite = () => {
+  const snap = useSnapshot(state);
   return (
     <GradientBackground>
       <Header title="Favoritos" />
       <FlatList
-        data={bookList}
+        data={snap.books}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.canonical_isbn}
         className="px-4"
         renderItem={({ item }) => <FavoriteCard book={item} />}
       />

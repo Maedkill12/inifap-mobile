@@ -20,13 +20,15 @@ const FavoriteCard = ({ book }) => {
         onPress={() => navigation.navigate("Detail", { book })}
       >
         <Image
-          source={{ uri: book.portada }}
+          source={{
+            uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
+          }}
           className="h-[169px] w-[116px] rounded-xl"
         />
         <View className="flex-1 py-4 justify-between">
-          <Text className="font-bold text-white text-base">{book.titulo}</Text>
+          <Text className="font-bold text-white text-base">{book.title}</Text>
           <Text className="text-white font-medium text-sm">
-            Autor: {book.autor}
+            Autor: {book.authors[0]}
           </Text>
         </View>
       </TouchableOpacity>

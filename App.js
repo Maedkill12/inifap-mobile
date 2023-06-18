@@ -6,10 +6,28 @@ import HomeScreen from "./src/screens/HomeScreen";
 import FavoriteScreen from "./src/screens/FavoriteScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import { AntDesign } from "@expo/vector-icons";
+import useFetch from "./src/hooks/useFetch";
+import { useEffect } from "react";
+import state from "./src/state";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const { data, isLoading, error } = useFetch(
+    "https://book-finder1.p.rapidapi.com/api/search?results_per_page=25&page=1",
+    {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "b6ac727c27msh9d5371b7a600d81p1499f5jsnad87346e86d7",
+        "X-RapidAPI-Host": "book-finder1.p.rapidapi.com",
+      },
+    }
+  );
+
+  useEffect(() => {
+    state.books = data.results;
+  }, [data]);
+
   return (
     <NavigationContainer>
       <StatusBar style="dark" />

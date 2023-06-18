@@ -9,16 +9,20 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
+import { useSnapshot } from "valtio";
+import state from "../state";
 
 const Stack = createStackNavigator();
 
 const Home = () => {
+  const snap = useSnapshot(state);
+
   return (
     <GradientBackground>
       <Header title="Inicio" />
       <View style={{ gap: 40 }}>
-        <HorizontalList name="Disponibles" list={bookList} />
-        <HorizontalList name="Recientes" list={bookList} />
+        <HorizontalList name="Disponibles" list={snap.books} />
+        <HorizontalList name="Recientes" list={snap.books} />
       </View>
     </GradientBackground>
   );

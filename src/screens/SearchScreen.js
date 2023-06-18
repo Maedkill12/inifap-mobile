@@ -6,20 +6,22 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
-import { bookList } from "../../dummy";
 import BookCard from "../components/BookCard";
 import { FlatList } from "react-native";
+import { useSnapshot } from "valtio";
+import state from "../state";
 
 const Stack = createStackNavigator();
 
 const Search = () => {
+  const snap = useSnapshot(state);
   return (
     <GradientBackground>
       <Header title="Buscar" />
       <FlatList
-        data={bookList}
+        data={snap.books}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.canonical_isbn}
         className="px-4"
         columnWrapperStyle={{
           justifyContent: "space-around",
