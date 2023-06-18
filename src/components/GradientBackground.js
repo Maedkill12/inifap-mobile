@@ -10,7 +10,8 @@ const GradientBackground = ({ children }) => {
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 0 }}
     >
-      <SafeAreaView>{children}</SafeAreaView>
+      <SafeAreaView />
+      {children}
     </LinearGradient>
   );
 };
