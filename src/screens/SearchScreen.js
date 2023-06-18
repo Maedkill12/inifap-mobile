@@ -1,11 +1,14 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
+import GradientBackground from "../components/GradientBackground";
+import Header from "../components/Header";
 
 const SearchScreen = () => {
   return (
-    <View>
+    <GradientBackground>
+      <Header title="Buscar" />
       <Text>SearchScreen</Text>
-    </View>
+    </GradientBackground>
   );
 };
 

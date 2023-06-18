@@ -1,11 +1,14 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
+import GradientBackground from "../components/GradientBackground";
+import Header from "../components/Header";
 
 const FavoriteScreen = () => {
   return (
-    <View>
+    <GradientBackground>
+      <Header title="Favoritos" />
       <Text>FavoriteScreen</Text>
-    </View>
+    </GradientBackground>
   );
 };
 
