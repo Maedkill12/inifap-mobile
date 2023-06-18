@@ -25,7 +25,7 @@ export default function App() {
           component={HomeScreen}
         />
         <Tab.Screen
-          name="Search"
+          name="StackSearch"
           options={{
             title: "Buscar",
             tabBarIcon: ({ color, size }) => (
