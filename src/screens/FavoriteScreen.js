@@ -10,10 +10,12 @@ import DetailScreen from "./DetailScreen";
 import FavoriteCard from "../components/FavoriteCard";
 import { useSnapshot } from "valtio";
 import state from "../state";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
 const Favorite = () => {
+  const navigation = useNavigation();
   const snap = useSnapshot(state);
   return (
     <GradientBackground>
@@ -23,7 +25,16 @@ const Favorite = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.canonical_isbn}
         className="px-4"
-        renderItem={({ item }) => <FavoriteCard book={item} />}
+        renderItem={({ item }) => (
+          <FavoriteCard
+            onPress={() => navigation.navigate("Detail", { book: item })}
+            title={item.title}
+            author={item.authors[0]}
+            source={{
+              uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
+            }}
+          />
+        )}
       />
     </GradientBackground>
   );

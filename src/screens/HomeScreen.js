@@ -2,8 +2,6 @@ import { View } from "react-native";
 import React from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
-import HorizontalList from "../components/HorizontalList";
-import { bookList } from "../../dummy";
 import {
   createStackNavigator,
   TransitionPresets,
@@ -11,6 +9,7 @@ import {
 import DetailScreen from "./DetailScreen";
 import { useSnapshot } from "valtio";
 import state from "../state";
+import HorizontalBookList from "../components/HorizontalBookList/HorizontalBookList";
 
 const Stack = createStackNavigator();
 
@@ -21,8 +20,16 @@ const Home = () => {
     <GradientBackground>
       <Header title="Inicio" />
       <View style={{ gap: 40 }}>
-        <HorizontalList name="Disponibles" list={snap.books} />
-        <HorizontalList name="Recientes" list={snap.books} />
+        <HorizontalBookList
+          title="Disponibles"
+          list={snap.books}
+          color="text-white"
+        />
+        <HorizontalBookList
+          title="Recientes"
+          list={snap.books}
+          color="text-white"
+        />
       </View>
     </GradientBackground>
   );
