@@ -5,7 +5,7 @@ import React from "react";
 const BackButton = ({ onPress }) => {
   return (
     <TouchableOpacity
-      className="bg-white rounded-full w-[48px] h-[48px] items-center justify-center"
+      className="bg-white rounded-full w-[48px] h-[48px] items-center justify-center mx-4"
       onPress={onPress}
     >
       <AntDesign name="arrowleft" size={36} color="#427B70" />

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import {
@@ -7,14 +7,13 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
-import { useSnapshot } from "valtio";
-import state from "../state";
 import HorizontalBookList from "../components/HorizontalBookList/HorizontalBookList";
+import { ArticleContext } from "../contexts/Article";
 
 const Stack = createStackNavigator();
 
 const Home = () => {
-  const snap = useSnapshot(state);
+  const { articles } = useContext(ArticleContext);
 
   return (
     <GradientBackground>
@@ -22,12 +21,12 @@ const Home = () => {
       <View style={{ gap: 40 }}>
         <HorizontalBookList
           title="Disponibles"
-          list={snap.books}
+          list={articles}
           color="text-white"
         />
         <HorizontalBookList
           title="Recientes"
-          list={snap.books}
+          list={articles}
           color="text-white"
         />
       </View>

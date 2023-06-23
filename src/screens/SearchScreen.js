@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import {
@@ -8,21 +8,19 @@ import {
 import DetailScreen from "./DetailScreen";
 import BookCard from "../components/BookCover";
 import { FlatList } from "react-native";
-import { useSnapshot } from "valtio";
-import state from "../state";
 import { useNavigation } from "@react-navigation/native";
+import { ArticleContext } from "../contexts/Article";
 
 const Stack = createStackNavigator();
 
 const Search = () => {
   const navigation = useNavigation();
-  const snap = useSnapshot(state);
-
+  const { articles } = useContext(ArticleContext);
   return (
     <GradientBackground>
       <Header title="Buscar" />
       <FlatList
-        data={snap.books}
+        data={articles}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.canonical_isbn}
         className="px-4"

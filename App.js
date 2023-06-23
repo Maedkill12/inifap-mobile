@@ -6,13 +6,17 @@ import HomeScreen from "./src/screens/HomeScreen";
 import FavoriteScreen from "./src/screens/FavoriteScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import { AntDesign } from "@expo/vector-icons";
+import { useContext, useEffect } from "react";
+import ArticleProvider, {
+  ArticleContext,
+  actionTypes,
+} from "./src/contexts/Article";
 import useFetch from "./src/hooks/useFetch";
-import { useEffect } from "react";
-import state from "./src/state";
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const TabNavigator = () => {
+  const { dispatch } = useContext(ArticleContext);
   const { data, isLoading, error } = useFetch(
     "https://book-finder1.p.rapidapi.com/api/search?results_per_page=25&page=1",
     {
@@ -25,44 +29,55 @@ export default function App() {
   );
 
   useEffect(() => {
-    state.books = data.results;
+    if (!data) {
+      return;
+    }
+    dispatch({ type: actionTypes.fetchAll, payload: data.results });
   }, [data]);
 
   return (
-    <NavigationContainer>
-      <StatusBar style="dark" />
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen
-          name="StackHome"
-          options={{
-            title: "Inicio",
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="home" size={size} color={color} />
-            ),
-          }}
-          component={HomeScreen}
-        />
-        <Tab.Screen
-          name="StackSearch"
-          options={{
-            title: "Buscar",
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="search1" size={size} color={color} />
-            ),
-          }}
-          component={SearchScreen}
-        />
-        <Tab.Screen
-          name="StackFavorite"
-          options={{
-            title: "Favoritos",
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="hearto" size={size} color={color} />
-            ),
-          }}
-          component={FavoriteScreen}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen
+        name="StackHome"
+        options={{
+          title: "Inicio",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="home" size={size} color={color} />
+          ),
+        }}
+        component={HomeScreen}
+      />
+      <Tab.Screen
+        name="StackSearch"
+        options={{
+          title: "Buscar",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="search1" size={size} color={color} />
+          ),
+        }}
+        component={SearchScreen}
+      />
+      <Tab.Screen
+        name="StackFavorite"
+        options={{
+          title: "Favoritos",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="hearto" size={size} color={color} />
+          ),
+        }}
+        component={FavoriteScreen}
+      />
+    </Tab.Navigator>
+  );
+};
+
+export default function App() {
+  return (
+    <ArticleProvider>
+      <NavigationContainer>
+        <StatusBar style="dark" />
+        <TabNavigator />
+      </NavigationContainer>
+    </ArticleProvider>
   );
 }

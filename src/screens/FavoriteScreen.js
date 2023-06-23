@@ -1,5 +1,5 @@
 import { FlatList } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import {
@@ -8,20 +8,19 @@ import {
 } from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
 import FavoriteCard from "../components/FavoriteCard";
-import { useSnapshot } from "valtio";
-import state from "../state";
 import { useNavigation } from "@react-navigation/native";
+import { ArticleContext } from "../contexts/Article";
 
 const Stack = createStackNavigator();
 
 const Favorite = () => {
   const navigation = useNavigation();
-  const snap = useSnapshot(state);
+  const { articles } = useContext(ArticleContext);
   return (
     <GradientBackground>
       <Header title="Favoritos" />
       <FlatList
-        data={snap.books}
+        data={articles}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.canonical_isbn}
         className="px-4"
