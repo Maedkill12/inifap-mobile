@@ -21,12 +21,12 @@ const HorizontalBookList = ({ list, title, color }) => {
           data={list}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.canonical_isbn}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <BookCover
-              onPress={() => navigation.navigate("Detail", { book: item })}
+              onPress={() => navigation.navigate("Detail", { id: item.id })}
               source={{
-                uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
+                uri: item.portada_url,
               }}
             />
           )}

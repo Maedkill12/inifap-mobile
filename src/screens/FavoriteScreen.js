@@ -26,9 +26,9 @@ const Favorite = () => {
         className="px-4"
         renderItem={({ item }) => (
           <FavoriteCard
-            onPress={() => navigation.navigate("Detail", { book: item })}
-            title={item.title}
-            author={item.authors[0]}
+            onPress={() => navigation.navigate("Detail", { id: item.id })}
+            title={item.titulo}
+            author={"Unkown"}
             source={{
               uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
             }}

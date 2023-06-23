@@ -8,7 +8,7 @@ import BookInfo from "./BookInfo";
 import BookDescription from "./BookDescription";
 import RecomendedBooks from "./RecomendedBooks";
 
-const BookPresentation = ({ title, author, summary, recomneded }) => {
+const BookPresentation = ({ title, author, summary, recomneded, cover }) => {
   const navigation = useNavigation();
   return (
     <GradientBackground>
@@ -17,7 +17,7 @@ const BookPresentation = ({ title, author, summary, recomneded }) => {
         <BookCover
           onPress={null}
           source={{
-            uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
+            uri: cover,
           }}
         />
         <BookInfo title={title} author={author} />

@@ -28,7 +28,7 @@ const useFetch = (url, options) => {
     };
     getData();
     return () => abortController.abort("Data fetching cancelled");
-  }, []);
+  }, [url]);
 
   return { isLoading, error, data };
 };

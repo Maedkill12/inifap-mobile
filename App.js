@@ -17,22 +17,19 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   const { dispatch } = useContext(ArticleContext);
-  const { data, isLoading, error } = useFetch(
-    "https://book-finder1.p.rapidapi.com/api/search?results_per_page=25&page=1",
-    {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "b6ac727c27msh9d5371b7a600d81p1499f5jsnad87346e86d7",
-        "X-RapidAPI-Host": "book-finder1.p.rapidapi.com",
-      },
-    }
-  );
+  const { data, isLoading, error } = useFetch("http://192.168.1.67/articles", {
+    method: "GET",
+    // headers: {
+    //   "X-RapidAPI-Key": "b6ac727c27msh9d5371b7a600d81p1499f5jsnad87346e86d7",
+    //   "X-RapidAPI-Host": "book-finder1.p.rapidapi.com",
+    // },
+  });
 
   useEffect(() => {
     if (!data) {
       return;
     }
-    dispatch({ type: actionTypes.fetchAll, payload: data.results });
+    dispatch({ type: actionTypes.fetchAll, payload: data });
   }, [data]);
 
   return (
