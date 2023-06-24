@@ -1,16 +1,15 @@
 import { useRoute } from "@react-navigation/native";
-import { useContext, useEffect, useState } from "react";
-import { ArticleContext } from "../contexts/Article";
+import { useEffect, useState } from "react";
 import { Text } from "react-native";
 import useFetch from "../hooks/useFetch";
 import BookPresentation from "../components/DetailScreen/BookPresentation";
 
 const DetailScreen = () => {
-  const { articles } = useContext(ArticleContext);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [summary, setSummary] = useState("");
   const [cover, setCover] = useState("");
+  const [recomneded, setRecommended] = useState([]);
   const {
     params: { id },
   } = useRoute();
@@ -31,9 +30,10 @@ const DetailScreen = () => {
       return;
     }
     setTitle(data.titulo);
-    setAuthor("Unknown");
+    setAuthor(data.autores[0]);
     setSummary(data.descripcion);
     setCover(data.portada_url);
+    setRecommended(data.recomendados);
   }, [data]);
 
   if (isLoading || !data) {
@@ -46,7 +46,7 @@ const DetailScreen = () => {
       author={author}
       summary={summary}
       cover={cover}
-      recomneded={articles}
+      recomneded={recomneded}
     />
   );
 };

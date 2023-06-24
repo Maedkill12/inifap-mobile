@@ -22,15 +22,15 @@ const Favorite = () => {
       <FlatList
         data={articles}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.canonical_isbn}
+        keyExtractor={(item) => item.id}
         className="px-4"
         renderItem={({ item }) => (
           <FavoriteCard
             onPress={() => navigation.navigate("Detail", { id: item.id })}
             title={item.titulo}
-            author={"Unkown"}
+            author={item.autores[0]}
             source={{
-              uri: "https://getcovers.com/wp-content/uploads/2020/12/image49-954x1536.jpg",
+              uri: item.portada_url,
             }}
           />
         )}
