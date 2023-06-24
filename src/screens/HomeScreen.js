@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import {
@@ -9,15 +9,34 @@ import {
 import DetailScreen from "./DetailScreen";
 import HorizontalBookList from "../components/HorizontalBookList/HorizontalBookList";
 import { ArticleContext } from "../contexts/Article";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
 const Home = () => {
+  const [search, setSearch] = useState("");
   const { articles } = useContext(ArticleContext);
+  const navigation = useNavigation();
+
+  const onSearch = () => {
+    if (!search) {
+      return;
+    }
+    navigation.navigate("StackSearch", { search });
+  };
+
+  const recentArticles = articles.slice().sort((a, b) => {
+    return new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion);
+  });
 
   return (
     <GradientBackground>
-      <Header title="Inicio" />
+      <Header
+        title="Inicio"
+        value={search}
+        onChangeText={setSearch}
+        onSearch={onSearch}
+      />
       <View style={{ gap: 40 }}>
         <HorizontalBookList
           title="Disponibles"
@@ -26,7 +45,7 @@ const Home = () => {
         />
         <HorizontalBookList
           title="Recientes"
-          list={articles}
+          list={recentArticles}
           color="text-white"
         />
       </View>

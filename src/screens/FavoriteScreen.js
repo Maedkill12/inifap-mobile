@@ -1,5 +1,5 @@
 import { FlatList } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import {
@@ -15,12 +15,32 @@ const Stack = createStackNavigator();
 
 const Favorite = () => {
   const navigation = useNavigation();
+  const [search, setSearch] = useState("");
   const { articles } = useContext(ArticleContext);
+
+  const onSearch = () => {};
+
+  const filteredArticles = articles.filter((article) => {
+    const term = search.toLowerCase().trim();
+    return (
+      article.titulo.toLowerCase().includes(term) ||
+      article.descripcion.toLowerCase().includes(term) ||
+      article.categoria_nombre.toLowerCase().includes(term) ||
+      article.tags.some((tag) => tag.toLowerCase().includes(term)) ||
+      article.autores.some((author) => author.toLowerCase().includes(term))
+    );
+  });
+
   return (
     <GradientBackground>
-      <Header title="Favoritos" />
+      <Header
+        title="Favoritos"
+        value={search}
+        onChangeText={setSearch}
+        onSearch={onSearch}
+      />
       <FlatList
-        data={articles}
+        data={filteredArticles}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
         className="px-4"

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import {
@@ -9,16 +9,40 @@ import DetailScreen from "./DetailScreen";
 import BookCard from "../components/BookCover";
 import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ArticleContext } from "../contexts/Article";
+import { SearchContext } from "../contexts/Search";
+import useFetch from "../hooks/useFetch";
 
 const Stack = createStackNavigator();
 
 const Search = () => {
   const navigation = useNavigation();
-  const { articles } = useContext(ArticleContext);
+  const [articles, setArticles] = useState([]);
+  const { search } = useContext(SearchContext);
+  const [value, setValue] = useState("");
+  const { data, error, isLoading } = useFetch(
+    `http://192.168.1.67/articles?search=${search}`,
+    {
+      method: "GET",
+    }
+  );
+
+  const onSearch = () => {};
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    setArticles(data);
+  }, [data]);
+
   return (
     <GradientBackground>
-      <Header title="Buscar" />
+      <Header
+        title="Buscar"
+        value={value}
+        onChangeText={setValue}
+        onSearch={onSearch}
+      />
       <FlatList
         data={articles}
         showsVerticalScrollIndicator={false}

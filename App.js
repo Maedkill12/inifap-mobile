@@ -12,6 +12,7 @@ import ArticleProvider, {
   actionTypes,
 } from "./src/contexts/Article";
 import useFetch from "./src/hooks/useFetch";
+import SearchProvider from "./src/contexts/Search";
 
 const Tab = createBottomTabNavigator();
 
@@ -70,11 +71,13 @@ const TabNavigator = () => {
 
 export default function App() {
   return (
-    <ArticleProvider>
-      <NavigationContainer>
-        <StatusBar style="dark" />
-        <TabNavigator />
-      </NavigationContainer>
-    </ArticleProvider>
+    <SearchProvider>
+      <ArticleProvider>
+        <NavigationContainer>
+          <StatusBar style="dark" />
+          <TabNavigator />
+        </NavigationContainer>
+      </ArticleProvider>
+    </SearchProvider>
   );
 }
