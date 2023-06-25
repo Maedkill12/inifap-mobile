@@ -6,9 +6,11 @@ import BookPresentation from "../components/DetailScreen/BookPresentation";
 
 const DetailScreen = () => {
   const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+  const [authores, setAuthores] = useState("");
   const [summary, setSummary] = useState("");
   const [cover, setCover] = useState("");
+  const [tags, setTags] = useState([]);
+  const [category, setCategory] = useState("");
   const [recomneded, setRecommended] = useState([]);
   const {
     params: { id },
@@ -30,9 +32,11 @@ const DetailScreen = () => {
       return;
     }
     setTitle(data.titulo);
-    setAuthor(data.autores[0]);
+    setAuthores(data.autores);
     setSummary(data.descripcion);
     setCover(data.portada_url);
+    setTags(data.tags);
+    setCategory(data.categoria_nombre);
     setRecommended(data.recomendados);
   }, [data]);
 
@@ -42,10 +46,13 @@ const DetailScreen = () => {
 
   return (
     <BookPresentation
+      id={id}
       title={title}
-      author={author}
+      authores={authores}
       summary={summary}
       cover={cover}
+      tags={tags}
+      category={category}
       recomneded={recomneded}
     />
   );

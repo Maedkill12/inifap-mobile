@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { FlatList, View, Text } from "react-native";
 import React, { useContext, useState } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
@@ -16,11 +16,11 @@ const Stack = createStackNavigator();
 const Favorite = () => {
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
-  const { articles } = useContext(ArticleContext);
+  const { favorites } = useContext(ArticleContext);
 
   const onSearch = () => {};
 
-  const filteredArticles = articles.filter((article) => {
+  const filteredArticles = favorites.filter((article) => {
     const term = search.toLowerCase().trim();
     return (
       article.titulo.toLowerCase().includes(term) ||
@@ -39,22 +39,30 @@ const Favorite = () => {
         onChangeText={setSearch}
         onSearch={onSearch}
       />
-      <FlatList
-        data={filteredArticles}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
-        className="px-4"
-        renderItem={({ item }) => (
-          <FavoriteCard
-            onPress={() => navigation.navigate("Detail", { id: item.id })}
-            title={item.titulo}
-            author={item.autores[0]}
-            source={{
-              uri: item.portada_url,
-            }}
-          />
-        )}
-      />
+      {favorites.length > 0 ? (
+        <FlatList
+          data={filteredArticles}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => item.id}
+          className="px-4"
+          renderItem={({ item }) => (
+            <FavoriteCard
+              onPress={() => navigation.navigate("Detail", { id: item.id })}
+              title={item.titulo}
+              author={item.autores[0]}
+              source={{
+                uri: item.portada_url,
+              }}
+            />
+          )}
+        />
+      ) : (
+        <View className="justify-center items-center py-[50%]">
+          <Text className="font-bold text-white text-lg">
+            No tienes artículos favoritos.
+          </Text>
+        </View>
+      )}
     </GradientBackground>
   );
 };

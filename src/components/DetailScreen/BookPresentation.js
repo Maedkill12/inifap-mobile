@@ -8,7 +8,16 @@ import BookInfo from "./BookInfo";
 import BookDescription from "./BookDescription";
 import RecomendedBooks from "./RecomendedBooks";
 
-const BookPresentation = ({ title, author, summary, recomneded, cover }) => {
+const BookPresentation = ({
+  id,
+  title,
+  authores,
+  summary,
+  recomneded,
+  tags,
+  category,
+  cover,
+}) => {
   const navigation = useNavigation();
   return (
     <GradientBackground>
@@ -20,7 +29,15 @@ const BookPresentation = ({ title, author, summary, recomneded, cover }) => {
             uri: cover,
           }}
         />
-        <BookInfo title={title} author={author} />
+        <BookInfo
+          title={title}
+          authores={authores}
+          id={id}
+          category={category}
+          cover={cover}
+          summary={summary}
+          tags={tags}
+        />
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
