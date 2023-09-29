@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import BookCover from "../BookCover";
 import ListName from "./ListName";
 import ExpandListButton from "./ExpandListButton";
+import { URL_BASE } from "../../util/constans";
 
 const HorizontalBookList = ({ list, title, color }) => {
   const navigation = useNavigation();
@@ -26,7 +27,7 @@ const HorizontalBookList = ({ list, title, color }) => {
             <BookCover
               onPress={() => navigation.navigate("Detail", { id: item.id })}
               source={{
-                uri: item.portada_url,
+                uri: `${URL_BASE}/public/publicaciones/${item.imagen}`,
               }}
             />
           )}

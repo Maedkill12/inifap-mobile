@@ -15,12 +15,13 @@ const useFetch = (url, options) => {
       setError(null);
       try {
         const response = await fetch(url, options);
+        // console.log(response);
         const json = await response.json();
         setData(json);
       } catch (error) {
         if (!abortController.signal.aborted) {
           setError(error);
-          console.log(error);
+          // console.log(error);
         }
       } finally {
         setLoading(false);

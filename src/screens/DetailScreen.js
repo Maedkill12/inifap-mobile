@@ -1,6 +1,5 @@
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Text } from "react-native";
 import useFetch from "../hooks/useFetch";
 import BookPresentation from "../components/DetailScreen/BookPresentation";
 
@@ -16,7 +15,7 @@ const DetailScreen = () => {
     params: { id },
   } = useRoute();
 
-  const { data, error, isLoading, setUrl } = useFetch(
+  const { data, error, isLoading } = useFetch(
     `http://192.168.1.67/articles/${id}`,
     {
       method: "GET",
@@ -31,18 +30,20 @@ const DetailScreen = () => {
     if (!data) {
       return;
     }
-    setTitle(data.titulo);
-    setAuthores(data.autores);
-    setSummary(data.descripcion);
-    setCover(data.portada_url);
-    setTags(data.tags);
-    setCategory(data.categoria_nombre);
-    setRecommended(data.recomendados);
+    setTimeout(() => {
+      setTitle(data.titulo);
+      setAuthores(data.autores);
+      setSummary(data.descripcion);
+      setCover(data.portada_url);
+      setTags(data.tags);
+      setCategory(data.categoria_nombre);
+      setRecommended(data.recomendados);
+    }, 2000);
   }, [data]);
 
-  if (isLoading || !data) {
-    return <Text>Fetcing...</Text>;
-  }
+  // if (isLoading || !data) {
+  //   return;
+  // }
 
   return (
     <BookPresentation

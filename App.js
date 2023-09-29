@@ -6,33 +6,12 @@ import HomeScreen from "./src/screens/HomeScreen";
 import FavoriteScreen from "./src/screens/FavoriteScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import { AntDesign } from "@expo/vector-icons";
-import { useContext, useEffect } from "react";
-import ArticleProvider, {
-  ArticleContext,
-  actionTypes,
-} from "./src/contexts/Article";
-import useFetch from "./src/hooks/useFetch";
 import SearchProvider from "./src/contexts/Search";
+import ArticleProvider from "./src/contexts/Article";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const { dispatch } = useContext(ArticleContext);
-  const { data, isLoading, error } = useFetch("http://192.168.1.67/articles", {
-    method: "GET",
-    // headers: {
-    //   "X-RapidAPI-Key": "b6ac727c27msh9d5371b7a600d81p1499f5jsnad87346e86d7",
-    //   "X-RapidAPI-Host": "book-finder1.p.rapidapi.com",
-    // },
-  });
-
-  useEffect(() => {
-    if (!data) {
-      return;
-    }
-    dispatch({ type: actionTypes.fetchAll, payload: data });
-  }, [data]);
-
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen

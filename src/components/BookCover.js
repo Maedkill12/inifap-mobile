@@ -9,17 +9,21 @@ const BookCover = ({ onPress, source }) => {
           className="h-[170px] w-[116px] mr-2"
           onPress={onPress}
         >
-          <Image
-            source={source}
-            className="w-full h-full overflow-hidden rounded-xl"
-          />
+          {source?.uri && (
+            <Image
+              source={source}
+              className="w-full h-full overflow-hidden rounded-xl"
+            />
+          )}
         </TouchableOpacity>
       ) : (
         <View className="h-[170px] w-[116px] mr-2">
-          <Image
-            source={source}
-            className="w-full h-full overflow-hidden rounded-xl"
-          />
+          {source?.uri && (
+            <Image
+              source={source}
+              className="w-full h-full overflow-hidden rounded-xl"
+            />
+          )}
         </View>
       )}
     </>
