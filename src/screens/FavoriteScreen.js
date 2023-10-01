@@ -7,9 +7,9 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
-import FavoriteCard from "../components/FavoriteCard";
 import { useNavigation } from "@react-navigation/native";
 import { ArticleContext } from "../contexts/Article";
+import DetailedBookCard from "../components/DetailedBookCard";
 
 const Stack = createStackNavigator();
 
@@ -44,7 +44,7 @@ const Favorite = () => {
           keyExtractor={(item) => item.id}
           className="px-4"
           renderItem={({ item }) => (
-            <FavoriteCard
+            <DetailedBookCard
               onPress={() =>
                 navigation.navigate("Detail", {
                   id: item.id,

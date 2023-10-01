@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const useXMLHttpRequest = (url, method = "GET", body = null) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -23,7 +23,6 @@ const useXMLHttpRequest = (url, method = "GET", body = null) => {
           return;
         }
       }
-
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
       xhr.setRequestHeader("Content-Type", "application/json");
@@ -52,7 +51,7 @@ const useXMLHttpRequest = (url, method = "GET", body = null) => {
     getData();
   }, [url, method, body]);
 
-  return { data, error, loading };
+  return { data, loading, error };
 };
 
 export default useXMLHttpRequest;

@@ -1,4 +1,4 @@
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import BookCover from "../BookCover";
@@ -25,6 +25,11 @@ const HorizontalBookList = ({ list, title, color }) => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <BookCover
+              titleComponent={
+                <Text className={`${color}`} numberOfLines={1}>
+                  {item.publicacion}
+                </Text>
+              }
               onPress={() =>
                 navigation.navigate("Detail", {
                   id: item.id,

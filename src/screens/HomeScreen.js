@@ -18,24 +18,41 @@ const Stack = createStackNavigator();
 
 const Home = () => {
   const { dispatch } = useContext(ArticleContext);
-  const { data, loading, error } = useXHLHttpRequest(
-    `${URL_BASE}/api/articulo/tecnico`,
-    "GET",
-    null
-  );
+  const {
+    data: technicalData,
+    loading: loadingTechnical,
+    error: errorTechnical,
+  } = useXHLHttpRequest(`${URL_BASE}/api/articulo/tecnico`, "GET", null);
+
+  const {
+    data: scientificData,
+    loading: loadingScientific,
+    error: errorScientific,
+  } = useXHLHttpRequest(`${URL_BASE}/api/articulo/cientifico`, "GET", null);
+
   const [search, setSearch] = useState("");
-  const { articles } = useContext(ArticleContext);
+  // const { articles } = useContext(ArticleContext);
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (!data) {
+    if (!technicalData) {
       return;
     }
-    if (data.status !== "success") {
+    if (technicalData.status !== "success") {
       return;
     }
-    dispatch({ type: actionTypes.fetchAll, payload: data.data });
-  }, [data]);
+    // dispatch({ type: actionTypes.fetchAll, payload: technicalData.data });
+  }, [technicalData]);
+
+  useEffect(() => {
+    if (!scientificData) {
+      return;
+    }
+    if (scientificData.status !== "success") {
+      return;
+    }
+    // dispatch({ type: actionTypes.fetchAll, payload: scientificData.data });
+  }, [scientificData]);
 
   const onSearch = () => {
     if (!search) {
@@ -44,7 +61,7 @@ const Home = () => {
     navigation.navigate("StackSearch", { search });
   };
 
-  const recentArticles = articles.slice().sort((a, b) => b.ano - a.ano);
+  // const recentArticles = articles.slice().sort((a, b) => b.ano - a.ano);
 
   return (
     <GradientBackground>
@@ -54,16 +71,16 @@ const Home = () => {
         onChangeText={setSearch}
         onSearch={onSearch}
       />
-      {!loading ? (
+      {!loadingTechnical && !loadingScientific ? (
         <View style={{ gap: 40 }}>
           <HorizontalBookList
-            title="Disponibles"
-            list={articles}
+            title="Tecnico"
+            list={technicalData.data}
             color="text-white"
           />
           <HorizontalBookList
-            title="Recientes"
-            list={recentArticles}
+            title="Científico"
+            list={scientificData.data}
             color="text-white"
           />
         </View>

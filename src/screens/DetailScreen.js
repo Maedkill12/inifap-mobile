@@ -33,9 +33,12 @@ const DetailScreen = () => {
     setPdfName(info.liga ?? "");
     setYear(info.ano ?? "");
     setSummary(
-      `${info.publicacion} (${info.ano.replace("\n", "").replace(/\s/, "")})\n${
-        info.publicacionot ?? ""
-      }\n${info.mensaje ?? ""}`
+      `${info.publicacion} (${info.ano
+        .toString()
+        .replace("\n", "")
+        .replace(/\s/, "")})\n${info.publicacionot ?? ""}\n${
+        info.mensaje ?? ""
+      }`
     );
     setCover(
       info.imagen ? `${URL_BASE}/public/publicaciones/${info.imagen}` : ""
