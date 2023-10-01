@@ -18,6 +18,7 @@ const BookPresentation = ({
   category,
   cover,
   loading,
+  pdfName,
 }) => {
   const navigation = useNavigation();
   return (
@@ -40,7 +41,7 @@ const BookPresentation = ({
             category={category}
             cover={cover}
             summary={summary}
-            loading={loading}
+            pdfName={pdfName}
           />
         </View>
       )}

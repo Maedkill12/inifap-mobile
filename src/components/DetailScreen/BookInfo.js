@@ -1,12 +1,11 @@
-import { View, Text } from "react-native";
+import { View, Text, Linking, Alert, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
-import { TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { ArticleContext, actionTypes } from "../../contexts/Article";
-import { Alert } from "react-native";
+import { URL_BASE } from "../../util/constans";
 
-const BookInfo = ({ title, id, cover, year, summary, category, loading }) => {
+const BookInfo = ({ title, id, cover, year, summary, category, pdfName }) => {
   const { dispatch, favorites } = useContext(ArticleContext);
 
   const handleFavorite = () => {
@@ -29,12 +28,24 @@ const BookInfo = ({ title, id, cover, year, summary, category, loading }) => {
     Alert.alert("Agregado a favoritos");
   };
 
+  const openPDF = async () => {
+    const url = `${URL_BASE}/public/publicaciones/${pdfName}`;
+    const supported = await Linking.canOpenURL(url);
+    if (!supported) {
+      Alert.alert("Error", "No se pudo abrir el PDF");
+    }
+    await Linking.openURL(url);
+  };
+
   return (
     <View className="justify-between flex-1">
       <Text className="text-sm font-bold text-white">{title}</Text>
       <Text className="font-medium text-[#D7D7D7] text-sm">Año: {year}</Text>
       <View className="flex-row items-center" style={{ gap: 20 }}>
-        <TouchableOpacity className="bg-red-500 w-[98px] h-[34px] items-center justify-center rounded-lg">
+        <TouchableOpacity
+          onPress={openPDF}
+          className="bg-red-500 w-[98px] h-[34px] items-center justify-center rounded-lg"
+        >
           <LinearGradient
             className="items-center justify-center w-full h-full rounded-lg"
             colors={["#FFA3A3", "#FC2727"]}

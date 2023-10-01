@@ -9,6 +9,7 @@ const DetailScreen = () => {
   const [year, setYear] = useState("");
   const [summary, setSummary] = useState("");
   const [cover, setCover] = useState("");
+  const [pdfName, setPdfName] = useState("");
   const [recomneded, setRecommended] = useState([]);
   const {
     params: { id, category },
@@ -29,6 +30,7 @@ const DetailScreen = () => {
     }
     const info = data.data;
     setTitle(info.publicacion ?? "");
+    setPdfName(info.liga ?? "");
     setYear(info.ano ?? "");
     setSummary(
       `${info.publicacion} (${info.ano.replace("\n", "").replace(/\s/, "")})\n${
@@ -51,6 +53,7 @@ const DetailScreen = () => {
       category={category}
       recomneded={recomneded}
       loading={loading}
+      pdfName={pdfName}
     />
   );
 };
