@@ -7,45 +7,52 @@ import BookCover from "../BookCover";
 import BookInfo from "./BookInfo";
 import BookDescription from "./BookDescription";
 import RecomendedBooks from "./RecomendedBooks";
+import SkeletonContent from "./SkeletonContent";
 
 const BookPresentation = ({
   id,
   title,
-  authores,
+  year,
   summary,
   recomneded,
-  tags,
   category,
   cover,
+  loading,
 }) => {
   const navigation = useNavigation();
   return (
     <GradientBackground>
-      <BackButton onPress={() => navigation.goBack()} />
-      <View className="mt-2 flex-row top-5 px-4 z-10" style={{ gap: 20 }}>
-        <BookCover
-          onPress={null}
-          source={{
-            uri: cover,
-          }}
-        />
-        <BookInfo
-          title={title}
-          authores={authores}
-          id={id}
-          category={category}
-          cover={cover}
-          summary={summary}
-          tags={tags}
-        />
-      </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        className="bg-white flex-1 pt-14"
-      >
-        <BookDescription summary={summary} />
-        <RecomendedBooks books={recomneded} />
-      </ScrollView>
+      {!loading && <BackButton onPress={() => navigation.goBack()} />}
+      {loading ? (
+        <SkeletonContent />
+      ) : (
+        <View className="z-10 flex-row px-4 mt-2 top-5" style={{ gap: 20 }}>
+          <BookCover
+            onPress={null}
+            source={{
+              uri: cover,
+            }}
+          />
+          <BookInfo
+            title={title}
+            year={year}
+            id={id}
+            category={category}
+            cover={cover}
+            summary={summary}
+            loading={loading}
+          />
+        </View>
+      )}
+      {!loading && (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          className="flex-1 bg-white pt-14"
+        >
+          <BookDescription summary={summary} />
+          <RecomendedBooks books={recomneded} />
+        </ScrollView>
+      )}
     </GradientBackground>
   );
 };

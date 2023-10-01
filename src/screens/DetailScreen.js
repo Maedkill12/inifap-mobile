@@ -1,60 +1,56 @@
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
 import BookPresentation from "../components/DetailScreen/BookPresentation";
+import useXMLHttpRequest from "../hooks/useXMLHttpRequest";
+import { URL_BASE } from "../util/constans";
 
 const DetailScreen = () => {
   const [title, setTitle] = useState("");
-  const [authores, setAuthores] = useState("");
+  const [year, setYear] = useState("");
   const [summary, setSummary] = useState("");
   const [cover, setCover] = useState("");
-  const [tags, setTags] = useState([]);
-  const [category, setCategory] = useState("");
   const [recomneded, setRecommended] = useState([]);
   const {
-    params: { id },
+    params: { id, category },
   } = useRoute();
 
-  const { data, error, isLoading } = useFetch(
-    `http://192.168.1.67/articles/${id}`,
-    {
-      method: "GET",
-      // headers: {
-      //   "X-RapidAPI-Key": "b6ac727c27msh9d5371b7a600d81p1499f5jsnad87346e86d7",
-      //   "X-RapidAPI-Host": "book-finder1.p.rapidapi.com",
-      // },
-    }
+  const { data, error, loading } = useXMLHttpRequest(
+    `${URL_BASE}/api/articulo/${category}/${id}`,
+    "GET",
+    null
   );
 
   useEffect(() => {
     if (!data) {
       return;
     }
-    setTimeout(() => {
-      setTitle(data.titulo);
-      setAuthores(data.autores);
-      setSummary(data.descripcion);
-      setCover(data.portada_url);
-      setTags(data.tags);
-      setCategory(data.categoria_nombre);
-      setRecommended(data.recomendados);
-    }, 2000);
+    if (data.status !== "success") {
+      return;
+    }
+    const info = data.data;
+    setTitle(info.publicacion ?? "");
+    setYear(info.ano ?? "");
+    setSummary(
+      `${info.publicacion} (${info.ano.replace("\n", "").replace(/\s/, "")})\n${
+        info.publicacionot ?? ""
+      }\n${info.mensaje ?? ""}`
+    );
+    setCover(
+      info.imagen ? `${URL_BASE}/public/publicaciones/${info.imagen}` : ""
+    );
+    setRecommended(info.recomendaciones ?? []);
   }, [data]);
-
-  // if (isLoading || !data) {
-  //   return;
-  // }
 
   return (
     <BookPresentation
       id={id}
       title={title}
-      authores={authores}
+      year={year}
       summary={summary}
       cover={cover}
-      tags={tags}
       category={category}
       recomneded={recomneded}
+      loading={loading}
     />
   );
 };

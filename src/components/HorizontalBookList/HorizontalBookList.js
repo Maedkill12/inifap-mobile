@@ -25,7 +25,12 @@ const HorizontalBookList = ({ list, title, color }) => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <BookCover
-              onPress={() => navigation.navigate("Detail", { id: item.id })}
+              onPress={() =>
+                navigation.navigate("Detail", {
+                  id: item.id,
+                  category: item.categoria,
+                })
+              }
               source={{
                 uri: `${URL_BASE}/public/publicaciones/${item.imagen}`,
               }}

@@ -13,7 +13,7 @@ const useXMLHttpRequest = (url, method = "GET", body = null) => {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onload = () => {
       if (xhr.status >= 200 && xhr.status < 300) {
-        setData(JSON.parse(xhr.responseText).data);
+        setData(JSON.parse(xhr.responseText));
         setLoading(false);
       } else {
         setError(xhr.statusText);

@@ -6,7 +6,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { ArticleContext, actionTypes } from "../../contexts/Article";
 import { Alert } from "react-native";
 
-const BookInfo = ({ title, id, cover, authores, summary, tags, category }) => {
+const BookInfo = ({ title, id, cover, year, summary, category, loading }) => {
   const { dispatch, favorites } = useContext(ArticleContext);
 
   const handleFavorite = () => {
@@ -22,7 +22,7 @@ const BookInfo = ({ title, id, cover, authores, summary, tags, category }) => {
         titulo: title,
         autores: authores,
         descipcion: summary,
-        tags,
+
         categoria_nombre: category,
       },
     });
@@ -31,19 +31,17 @@ const BookInfo = ({ title, id, cover, authores, summary, tags, category }) => {
 
   return (
     <View className="justify-between flex-1">
-      <Text className="font-bold text-white text-sm">{title}</Text>
-      <Text className="font-medium text-[#D7D7D7] text-sm">
-        Autor: {authores[0]}
-      </Text>
+      <Text className="text-sm font-bold text-white">{title}</Text>
+      <Text className="font-medium text-[#D7D7D7] text-sm">Año: {year}</Text>
       <View className="flex-row items-center" style={{ gap: 20 }}>
         <TouchableOpacity className="bg-red-500 w-[98px] h-[34px] items-center justify-center rounded-lg">
           <LinearGradient
-            className="w-full h-full items-center justify-center rounded-lg"
+            className="items-center justify-center w-full h-full rounded-lg"
             colors={["#FFA3A3", "#FC2727"]}
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
           >
-            <Text className="font-semibold text-white text-sm">Leer Ahora</Text>
+            <Text className="text-sm font-semibold text-white">Leer Ahora</Text>
           </LinearGradient>
         </TouchableOpacity>
         <TouchableOpacity
@@ -51,7 +49,7 @@ const BookInfo = ({ title, id, cover, authores, summary, tags, category }) => {
           className="bg-blue-500 w-[44px] h-[44px] rounded-full items-center justify-center"
         >
           <LinearGradient
-            className="w-full h-full items-center justify-center rounded-full"
+            className="items-center justify-center w-full h-full rounded-full"
             colors={["#5B9DFF", "#013F9C"]}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}

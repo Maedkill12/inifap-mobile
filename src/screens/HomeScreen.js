@@ -31,7 +31,10 @@ const Home = () => {
     if (!data) {
       return;
     }
-    dispatch({ type: actionTypes.fetchAll, payload: data });
+    if (data.status !== "success") {
+      return;
+    }
+    dispatch({ type: actionTypes.fetchAll, payload: data.data });
   }, [data]);
 
   const onSearch = () => {
@@ -41,9 +44,7 @@ const Home = () => {
     navigation.navigate("StackSearch", { search });
   };
 
-  const recentArticles = articles.slice().sort((a, b) => {
-    return new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion);
-  });
+  const recentArticles = articles.slice().sort((a, b) => b.ano - a.ano);
 
   return (
     <GradientBackground>
