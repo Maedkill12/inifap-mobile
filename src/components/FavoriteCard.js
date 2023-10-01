@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { TouchableOpacity } from "react-native";
 import BookCover from "./BookCover";
 
-const FavoriteCard = ({ onPress, title, author, source }) => {
+const FavoriteCard = ({ onPress, title, source, year }) => {
   return (
     <LinearGradient
       colors={["#6CAAA0", "#4B7C78"]}
@@ -18,11 +18,9 @@ const FavoriteCard = ({ onPress, title, author, source }) => {
         onPress={onPress}
       >
         <BookCover onPress={null} source={source} />
-        <View className="flex-1 py-4 justify-between">
-          <Text className="font-bold text-white text-base">{title}</Text>
-          <Text className="text-white font-medium text-sm">
-            Autor: {author}
-          </Text>
+        <View className="justify-between flex-1 py-4">
+          <Text className="text-base font-bold text-white">{title}</Text>
+          <Text className="text-sm font-medium text-white">Año: {year}</Text>
         </View>
       </TouchableOpacity>
     </LinearGradient>

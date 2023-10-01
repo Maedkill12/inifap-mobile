@@ -1,32 +1,23 @@
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import React from "react";
+import { Image } from "expo-image";
 
 const BookCover = ({ onPress, source }) => {
+  if (!source?.uri) {
+    return null;
+  }
+
+  const containerStyles = "h-[170px] w-[116px] mr-2";
+  const imageStyles = "w-full h-full overflow-hidden rounded-xl";
+
+  const content = <Image source={source.uri} className={imageStyles} />;
+
+  const Wrapper = onPress ? TouchableOpacity : View;
+
   return (
-    <>
-      {onPress ? (
-        <TouchableOpacity
-          className="h-[170px] w-[116px] mr-2"
-          onPress={onPress}
-        >
-          {source?.uri && (
-            <Image
-              source={source}
-              className="w-full h-full overflow-hidden rounded-xl"
-            />
-          )}
-        </TouchableOpacity>
-      ) : (
-        <View className="h-[170px] w-[116px] mr-2">
-          {source?.uri && (
-            <Image
-              source={source}
-              className="w-full h-full overflow-hidden rounded-xl"
-            />
-          )}
-        </View>
-      )}
-    </>
+    <Wrapper className={containerStyles} onPress={onPress}>
+      {content}
+    </Wrapper>
   );
 };
 

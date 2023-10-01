@@ -19,10 +19,9 @@ const BookInfo = ({ title, id, cover, year, summary, category, pdfName }) => {
         id,
         portada_url: cover,
         titulo: title,
-        autores: authores,
         descipcion: summary,
-
         categoria_nombre: category,
+        year,
       },
     });
     Alert.alert("Agregado a favoritos");

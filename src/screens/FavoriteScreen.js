@@ -25,9 +25,7 @@ const Favorite = () => {
     return (
       article.titulo.toLowerCase().includes(term) ||
       article.descripcion.toLowerCase().includes(term) ||
-      article.categoria_nombre.toLowerCase().includes(term) ||
-      article.tags.some((tag) => tag.toLowerCase().includes(term)) ||
-      article.autores.some((author) => author.toLowerCase().includes(term))
+      article.categoria_nombre.toLowerCase().includes(term)
     );
   });
 
@@ -47,9 +45,14 @@ const Favorite = () => {
           className="px-4"
           renderItem={({ item }) => (
             <FavoriteCard
-              onPress={() => navigation.navigate("Detail", { id: item.id })}
+              onPress={() =>
+                navigation.navigate("Detail", {
+                  id: item.id,
+                  category: item.categoria_nombre,
+                })
+              }
               title={item.titulo}
-              author={item.autores[0]}
+              year={item.year}
               source={{
                 uri: item.portada_url,
               }}
@@ -58,7 +61,7 @@ const Favorite = () => {
         />
       ) : (
         <View className="justify-center items-center py-[50%]">
-          <Text className="font-bold text-white text-lg">
+          <Text className="text-lg font-bold text-white">
             No tienes artículos favoritos.
           </Text>
         </View>
