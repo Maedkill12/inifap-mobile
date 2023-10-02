@@ -12,17 +12,20 @@ const Header = ({ title, value, onChangeText, onSearch }) => {
     if (!value) {
       return;
     }
-    dispatch({ type: actionTypes.SET, payload: value.toLowerCase().trim() });
+    dispatch({
+      type: actionTypes.SET_SEARCH,
+      payload: value.toLowerCase().trim(),
+    });
     Keyboard.dismiss();
     onSearch();
   };
 
   return (
     <View className="px-4 py-2 ">
-      <Text className="text-white font-semibold text-2xl">{title}</Text>
+      <Text className="text-2xl font-semibold text-white">{title}</Text>
       <View className="mt-3 mb-4 px-2 bg-[#4C7C7C] rounded-xl flex flex-row items-center">
         <TextInput
-          className="flex-1 text-sm text-white py-4 border-none"
+          className="flex-1 py-4 text-sm text-white border-none"
           placeholder="Buscar por autor, título, etc..."
           placeholderTextColor={"white"}
           value={value}

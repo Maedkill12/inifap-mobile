@@ -1,19 +1,25 @@
 import { View, FlatList, Text } from "react-native";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import BookCover from "../BookCover";
 import ListName from "./ListName";
 import ExpandListButton from "./ExpandListButton";
 import { URL_BASE } from "../../util/constans";
+import { SearchContext, actionTypes } from "../../contexts/Search";
 
-const HorizontalBookList = ({ list, title, color }) => {
+const HorizontalBookList = ({ list, title, color, category }) => {
   const navigation = useNavigation();
+  const { dispatch } = useContext(SearchContext);
+
   return (
     <View>
       <View className={`flex flex-row items-center justify-between mb-3 px-4`}>
         <ListName color={color} title={title} />
         <ExpandListButton
-          onPress={() => navigation.navigate("StackSearch")}
+          onPress={() => {
+            dispatch({ type: actionTypes.SET_CATEGORY, payload: category });
+            navigation.navigate("StackSearch");
+          }}
           color={color}
         />
       </View>

@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { TouchableOpacity } from "react-native";
 import BookCover from "./BookCover";
 
-const DetailedBookCard = ({ onPress, title, source, year }) => {
+const FavoriteCard = ({ onPress, title, source, year }) => {
   return (
     <LinearGradient
       colors={["#6CAAA0", "#4B7C78"]}
@@ -27,4 +27,4 @@ const DetailedBookCard = ({ onPress, title, source, year }) => {
   );
 };
 
-export default DetailedBookCard;
+export default FavoriteCard;

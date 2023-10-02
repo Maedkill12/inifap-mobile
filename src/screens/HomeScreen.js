@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GradientBackground from "../components/GradientBackground";
 import Header from "../components/Header";
 import {
@@ -8,7 +8,6 @@ import {
 } from "@react-navigation/stack";
 import DetailScreen from "./DetailScreen";
 import HorizontalBookList from "../components/HorizontalBookList/HorizontalBookList";
-import { ArticleContext, actionTypes } from "../contexts/Article";
 import { useNavigation } from "@react-navigation/native";
 import useXHLHttpRequest from "../hooks/useXMLHttpRequest";
 import * as Progress from "react-native-progress";
@@ -17,7 +16,6 @@ import { URL_BASE } from "../util/constans";
 const Stack = createStackNavigator();
 
 const Home = () => {
-  const { dispatch } = useContext(ArticleContext);
   const {
     data: technicalData,
     loading: loadingTechnical,
@@ -31,7 +29,6 @@ const Home = () => {
   } = useXHLHttpRequest(`${URL_BASE}/api/articulo/cientifico`, "GET", null);
 
   const [search, setSearch] = useState("");
-  // const { articles } = useContext(ArticleContext);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -41,7 +38,6 @@ const Home = () => {
     if (technicalData.status !== "success") {
       return;
     }
-    // dispatch({ type: actionTypes.fetchAll, payload: technicalData.data });
   }, [technicalData]);
 
   useEffect(() => {
@@ -51,17 +47,14 @@ const Home = () => {
     if (scientificData.status !== "success") {
       return;
     }
-    // dispatch({ type: actionTypes.fetchAll, payload: scientificData.data });
   }, [scientificData]);
 
   const onSearch = () => {
     if (!search) {
       return;
     }
-    navigation.navigate("StackSearch", { search });
+    navigation.navigate("StackSearch");
   };
-
-  // const recentArticles = articles.slice().sort((a, b) => b.ano - a.ano);
 
   return (
     <GradientBackground>
@@ -74,14 +67,16 @@ const Home = () => {
       {!loadingTechnical && !loadingScientific ? (
         <View style={{ gap: 40 }}>
           <HorizontalBookList
-            title="Tecnico"
+            title="Técnico"
             list={technicalData.data}
             color="text-white"
+            category={"tecnico"}
           />
           <HorizontalBookList
             title="Científico"
             list={scientificData.data}
             color="text-white"
+            category={"cientifico"}
           />
         </View>
       ) : (

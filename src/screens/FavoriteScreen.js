@@ -9,7 +9,7 @@ import {
 import DetailScreen from "./DetailScreen";
 import { useNavigation } from "@react-navigation/native";
 import { ArticleContext } from "../contexts/Article";
-import DetailedBookCard from "../components/DetailedBookCard";
+import FavoriteCard from "../components/FavoriteCard";
 
 const Stack = createStackNavigator();
 
@@ -44,7 +44,7 @@ const Favorite = () => {
           keyExtractor={(item) => item.id}
           className="px-4"
           renderItem={({ item }) => (
-            <DetailedBookCard
+            <FavoriteCard
               onPress={() =>
                 navigation.navigate("Detail", {
                   id: item.id,
