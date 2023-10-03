@@ -51,7 +51,9 @@ const BookPresentation = ({
           className="flex-1 bg-white pt-14"
         >
           <BookDescription summary={summary} />
-          <RecomendedBooks books={recomneded} />
+          {recomneded && recomneded.length > 0 && (
+            <RecomendedBooks books={recomneded} />
+          )}
         </ScrollView>
       )}
     </GradientBackground>
