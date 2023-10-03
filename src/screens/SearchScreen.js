@@ -18,12 +18,12 @@ const Stack = createStackNavigator();
 
 const Search = () => {
   const navigation = useNavigation();
-  const { search, category } = useContext(SearchContext);
+  const { search } = useContext(SearchContext);
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
   const [value, setValue] = useState("");
   const { data, loading, error } = useXHLHttpRequest(
-    `${URL_BASE}/api/articulo/${category ? category : "tecnico"}?page=${page}`,
+    `${URL_BASE}/api/articulo?page=${page}${search ? `&search=${search}` : ""}`,
     "GET",
     null
   );
@@ -38,6 +38,10 @@ const Search = () => {
     }
     setArticles(data.data);
   }, [data]);
+
+  useEffect(() => {
+    setValue(search);
+  }, [search]);
 
   return (
     <GradientBackground>
@@ -64,20 +68,22 @@ const Search = () => {
                   </TouchableOpacity>
                 )}
 
-                <TouchableOpacity
-                  onPress={() => {
-                    setPage((prev) => prev + 1);
-                  }}
-                >
-                  <Text className="py-4 text-lg font-bold text-white">
-                    Siguiente
-                  </Text>
-                </TouchableOpacity>
+                {articles.length >= 10 && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setPage((prev) => prev + 1);
+                    }}
+                  >
+                    <Text className="py-4 text-lg font-bold text-white">
+                      Siguiente
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
             }
             data={articles}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id + item.categoria}
             className="flex-1 px-4"
             columnWrapperStyle={{
               justifyContent: "space-around",

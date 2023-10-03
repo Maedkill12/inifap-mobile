@@ -16,38 +16,15 @@ import { URL_BASE } from "../util/constans";
 const Stack = createStackNavigator();
 
 const Home = () => {
-  const {
-    data: technicalData,
-    loading: loadingTechnical,
-    error: errorTechnical,
-  } = useXHLHttpRequest(`${URL_BASE}/api/articulo/tecnico`, "GET", null);
-
-  const {
-    data: scientificData,
-    loading: loadingScientific,
-    error: errorScientific,
-  } = useXHLHttpRequest(`${URL_BASE}/api/articulo/cientifico`, "GET", null);
+  const [articles, setArticles] = useState([]);
+  const { data, loading, error } = useXHLHttpRequest(
+    `${URL_BASE}/api/articulo`,
+    "GET",
+    null
+  );
 
   const [search, setSearch] = useState("");
   const navigation = useNavigation();
-
-  useEffect(() => {
-    if (!technicalData) {
-      return;
-    }
-    if (technicalData.status !== "success") {
-      return;
-    }
-  }, [technicalData]);
-
-  useEffect(() => {
-    if (!scientificData) {
-      return;
-    }
-    if (scientificData.status !== "success") {
-      return;
-    }
-  }, [scientificData]);
 
   const onSearch = () => {
     if (!search) {
@@ -55,6 +32,20 @@ const Home = () => {
     }
     navigation.navigate("StackSearch");
   };
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    if (data.status !== "success") {
+      return;
+    }
+    setArticles(data.data);
+  }, [data]);
+
+  const recent = articles
+    .slice()
+    .sort((a, b) => b.ano.toString().trim() - a.ano.toString().trim());
 
   return (
     <GradientBackground>
@@ -64,19 +55,17 @@ const Home = () => {
         onChangeText={setSearch}
         onSearch={onSearch}
       />
-      {!loadingTechnical && !loadingScientific ? (
+      {!loading ? (
         <View style={{ gap: 40 }}>
           <HorizontalBookList
-            title="Técnico"
-            list={technicalData.data}
+            title="Disponibles"
+            list={articles}
             color="text-white"
-            category={"tecnico"}
           />
           <HorizontalBookList
-            title="Científico"
-            list={scientificData.data}
+            title="Recientes"
+            list={recent}
             color="text-white"
-            category={"cientifico"}
           />
         </View>
       ) : (

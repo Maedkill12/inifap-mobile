@@ -19,7 +19,7 @@ const BookInfo = ({ title, id, cover, year, summary, category, pdfName }) => {
         id,
         portada_url: cover,
         titulo: title,
-        descipcion: summary,
+        descripcion: summary,
         categoria_nombre: category,
         year,
       },

@@ -36,6 +36,7 @@ const Favorite = () => {
         value={search}
         onChangeText={setSearch}
         onSearch={onSearch}
+        globalSeach={false}
       />
       {favorites.length > 0 ? (
         <FlatList

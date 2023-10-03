@@ -5,17 +5,22 @@ import { AntDesign } from "@expo/vector-icons";
 import { SearchContext, actionTypes } from "../contexts/Search";
 import { Keyboard } from "react-native";
 
-const Header = ({ title, value, onChangeText, onSearch }) => {
+const Header = ({
+  title,
+  value,
+  onChangeText,
+  onSearch,
+  globalSeach = true,
+}) => {
   const { dispatch } = useContext(SearchContext);
 
   const handleSearch = () => {
-    if (!value) {
-      return;
+    if (globalSeach) {
+      dispatch({
+        type: actionTypes.SET_SEARCH,
+        payload: value.toLowerCase().trim(),
+      });
     }
-    dispatch({
-      type: actionTypes.SET_SEARCH,
-      payload: value.toLowerCase().trim(),
-    });
     Keyboard.dismiss();
     onSearch();
   };

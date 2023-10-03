@@ -7,7 +7,7 @@ import ExpandListButton from "./ExpandListButton";
 import { URL_BASE } from "../../util/constans";
 import { SearchContext, actionTypes } from "../../contexts/Search";
 
-const HorizontalBookList = ({ list, title, color, category }) => {
+const HorizontalBookList = ({ list, title, color }) => {
   const navigation = useNavigation();
   const { dispatch } = useContext(SearchContext);
 
@@ -17,7 +17,6 @@ const HorizontalBookList = ({ list, title, color, category }) => {
         <ListName color={color} title={title} />
         <ExpandListButton
           onPress={() => {
-            dispatch({ type: actionTypes.SET_CATEGORY, payload: category });
             navigation.navigate("StackSearch");
           }}
           color={color}
@@ -28,7 +27,7 @@ const HorizontalBookList = ({ list, title, color, category }) => {
           data={list}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id + item.categoria}
           renderItem={({ item }) => (
             <BookCover
               titleComponent={
