@@ -19,6 +19,9 @@ const BookPresentation = ({
   cover,
   loading,
   pdfName,
+  isPdfOpen,
+  openPdf,
+  closePdf,
 }) => {
   const navigation = useNavigation();
   return (
@@ -42,6 +45,9 @@ const BookPresentation = ({
             cover={cover}
             summary={summary}
             pdfName={pdfName}
+            isPdfOpen={isPdfOpen}
+            openPdf={openPdf}
+            closePdf={closePdf}
           />
         </View>
       )}

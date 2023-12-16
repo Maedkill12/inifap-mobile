@@ -5,7 +5,18 @@ import { AntDesign } from "@expo/vector-icons";
 import { ArticleContext, actionTypes } from "../../contexts/Article";
 import { URL_BASE } from "../../util/constans";
 
-const BookInfo = ({ title, id, cover, year, summary, category, pdfName }) => {
+const BookInfo = ({
+  title,
+  id,
+  cover,
+  year,
+  summary,
+  category,
+  pdfName,
+  isPdfOpen,
+  openPdf,
+  closePdf,
+}) => {
   const { dispatch, favorites } = useContext(ArticleContext);
 
   const handleFavorite = () => {
@@ -42,7 +53,7 @@ const BookInfo = ({ title, id, cover, year, summary, category, pdfName }) => {
       <Text className="font-medium text-[#D7D7D7] text-sm">Año: {year}</Text>
       <View className="flex-row items-center" style={{ gap: 20 }}>
         <TouchableOpacity
-          onPress={openPDF}
+          onPress={isPdfOpen ? closePdf : openPdf}
           className="bg-red-500 w-[98px] h-[34px] items-center justify-center rounded-lg"
         >
           <LinearGradient

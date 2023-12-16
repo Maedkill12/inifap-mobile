@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useXMLHttpRequest = (url, method = "GET", body = null) => {
   const [data, setData] = useState(null);
